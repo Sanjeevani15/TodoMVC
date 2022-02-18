@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO</title>
+
+
+
+
+</head>
+<body>
+    
+
+    <input type="text" id="userInput" />
+    <ul id="list"></ul>
+
+    Filter: <button>All</button> <button>Completed</button>
+      <button>Active</button>
+      
+      <script>
+
+        // window.onload=function(){
+            class TodoItemModel{
+                constructor(caption,isCompleted) {
+                    this.caption=caption;
+                    this.isCompleted=isCompleted;
+                }
+                toggle() 
+                {
+                    this.isCompleted= !this.isCompleted;
+                }
+            }
+        
+        
+            class AppViewModel{
+                constructor(){
+                    this.todoCollection=[];
+                    this.filterType="all";
+                }
+                    addTodoItem(todoItem){
+                        this.todoCollection.push(todoItem);
+                    }
+        
+                    render(){
+        
+                        var self=this;
+                        document.getElementById("list").innerHTML="";
+        
+                        for(var i in this.todoCollection)
+                        {
+                            
+                            //let n=i;
+        
+        
+                            var itemDOM=document.createElement("li");
+                            
+                            var itemCheckbox=document.createElement("input");
+                            itemCheckbox.type="checkbox";
+        
+                            var itemCaption=document.createElement("span");
+                            itemCaption.innerHTML=this.todoCollection[i].caption;
+        
+                            var itemDeleteBtn= document.createElement("button");
+                            itemDeleteBtn.innerHTML="x";
+        
+                            
+                            itemDeleteBtn.onclick=function(input)
+                            {
+                            //    console.log(this.todoCollection[i]);
+                               // console.log(self);  
+                                console.log(self.todoCollection[input]);  
+                            }.bind(null,i);
+                            
+                            //itemDOM.innerHTML=this.todoCollection[i].caption;
+                            
+                            itemDOM.appendChild(itemCheckbox);
+                            itemDOM.appendChild(itemCaption);
+                            itemDOM.appendChild(itemDeleteBtn);
+                           
+        
+                               
+        
+                            document.getElementById("list").appendChild(itemDOM);
+                            
+                           
+                        
+                            // <li><input type="checkbox" /> First item <button>X</button></li>
+                            // <li><input type="checkbox" />Second Item<button>X</button></li> 
+        
+        
+                        }
+                    }
+            }
+        
+            var app=new AppViewModel();
+            var todoItem=new TodoItemModel("Do this ",false);
+            var todoItem2=new TodoItemModel("123 this ",false);
+            var todoItem3=new TodoItemModel("Third one ",false);
+        
+            app.addTodoItem(todoItem);
+            app.addTodoItem(todoItem2);
+            app.addTodoItem(todoItem3);
+        
+        
+           
+                app.render();
+            // }
+        
+          
+        
+        </script>
+      </body>
+</html>
